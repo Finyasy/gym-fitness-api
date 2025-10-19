@@ -1,13 +1,10 @@
-# Render Blueprint for Extreme Fitness Centre API
-services:
-  # PostgreSQL Database
-  - type: pserv
-    name: extreme-fitness-db
-    plan: free
+databases:
+  - name: extreme-fitness-db
     databaseName: extreme_fitness_production
     user: extreme_fitness_user
+    plan: free
 
-  # Rails API Service
+services:
   - type: web
     name: extreme-fitness-api
     runtime: ruby
