@@ -1,0 +1,27 @@
+# Render Blueprint for Extreme Fitness Centre API
+services:
+  # PostgreSQL Database
+  - type: pserv
+    name: extreme-fitness-db
+    plan: free
+    databaseName: extreme_fitness_production
+    user: extreme_fitness_user
+
+  # Rails API Service
+  - type: web
+    name: extreme-fitness-api
+    runtime: ruby
+    plan: free
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: extreme-fitness-db
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: RAILS_ENV
+        value: production
+      - key: FRONTEND_URL
+        sync: false
